@@ -1,22 +1,8 @@
-def createMoveList(side):
-	for row in range(side):
-		move_list.append([])
-		for col in range(side):
-			move_list[row].append(' ')
 
-def createBoard(side, move_list):
-	for row in range(side):
-		for col in range(side):
-			print(move_list[row][col]+'|', end = '')
-		print('\n')
-
-def makeAMove(row, col):
-	move_list[row][col] = sign
-	createBoard(side, move_list)
 
 
 from checkOver import checkOver
-
+from boardSetUp.boardSetUp import createMoveList, createBoard, makeAMove
 	
 
 
@@ -32,7 +18,7 @@ for i in range (1, num_player + 1):
 	sign_list.append(input('What is the sign for player {}: '.format(i)))
 
 move_list = []
-createMoveList(side)
+createMoveList(side, move_list)
 createBoard(side, move_list)
 
 turn = 0
@@ -45,7 +31,7 @@ while check == False:
 			move = input('Where do you want to put your sign, player {}: '.format(i)).split()
 			row = int(move[0])
 			col = int(move[1])
-			makeAMove(row, col)
+			makeAMove(row, col, sign, side, move_list)
 			if checkOver(move_list, sign, side, streak):
 				print('Winner is player {} !'.format(i))
 				check = True
