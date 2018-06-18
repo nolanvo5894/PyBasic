@@ -79,7 +79,11 @@ def checkOver(move_list,sign):
 
 
 
-side = int(input('How big do you want the board to be: ')) 
+side = int(input('How big do you want the board to be: '))
+num_player = int(input('How many players are in the games: ')) 
+sign_list = []
+for i in range (1, num_player + 1):
+	sign_list.append([input('What is the sign for player {}: '.format(i))])
 move_list = []
 createMoveList(side)
 createBoard(side, move_list)
