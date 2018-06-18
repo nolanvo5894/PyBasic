@@ -1,2 +1,2 @@
 # PyBasic
-learning Python basic
+projects to learn the programming language Python
