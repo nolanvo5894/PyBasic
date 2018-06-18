@@ -21,7 +21,7 @@ def checkOverRow(move_list, sign):
 		checkRow = []
 		for col in range(side):
 			checkRow.append(move_list[row][col])
-		if sign*3 in ''.join(checkRow):
+		if sign*streak in ''.join(checkRow):
 			return True
 	return False
 		
@@ -32,7 +32,7 @@ def checkOverCol(move_list, sign):
 		for row in range(side):
 			checkCol.append(move_list[row][col])
 		print(''.join(checkCol))
-		if sign*3 in ''.join(checkCol):
+		if sign*streak in ''.join(checkCol):
 			return True
 	return False
 
@@ -44,7 +44,7 @@ def checkOverDiagonalRight(move_list, sign):
 				if (row - col) == sub:
 					diagonal.append(move_list[row][col])
 		#print(diagonal)
-		if sign*3 in ''.join(diagonal):
+		if sign*streak in ''.join(diagonal):
 			return True
 	return False
 
@@ -56,7 +56,7 @@ def checkOverDiagonalLeft(move_list, sign):
 				if (row + col) == tot:
 					diagonal.append(move_list[row][col])
 		#print(diagonal)
-		if sign*3 in ''.join(diagonal):
+		if sign*streak in ''.join(diagonal):
 			return True
 	return False
 
@@ -80,8 +80,9 @@ def checkOver(move_list,sign):
 
 
 
-side = int(input('How big do you want the board to be: '))
-num_player = int(input('How many players are in the games: ')) 
+side = int(input('How big do you want the board to be ?: '))
+num_player = int(input('How many players are in the games ?: '))
+streak = int(input('How long should the winning streak be ?: ')) 
 sign_list = []
 for i in range (1, num_player + 1):
 	sign_list.append(input('What is the sign for player {}: '.format(i)))
