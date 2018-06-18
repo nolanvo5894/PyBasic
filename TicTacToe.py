@@ -21,7 +21,7 @@ def checkOverRow(move_list, sign):
 		checkRow = []
 		for col in range(side):
 			checkRow.append(move_list[row][col])
-		if sign*3 == ''.join(checkRow):
+		if sign*3 in ''.join(checkRow):
 			return True
 	return False
 		
@@ -31,7 +31,8 @@ def checkOverCol(move_list, sign):
 		checkCol = []
 		for row in range(side):
 			checkCol.append(move_list[row][col])
-		if sign*3 == ''.join(checkCol):
+		print(''.join(checkCol))
+		if sign*3 in ''.join(checkCol):
 			return True
 	return False
 
@@ -83,35 +84,27 @@ side = int(input('How big do you want the board to be: '))
 num_player = int(input('How many players are in the games: ')) 
 sign_list = []
 for i in range (1, num_player + 1):
-	sign_list.append([input('What is the sign for player {}: '.format(i))])
+	sign_list.append(input('What is the sign for player {}: '.format(i)))
 move_list = []
 createMoveList(side)
 createBoard(side, move_list)
 turn = 0
+check = False
 
-while True:
-	if turn%2 == 0:
-		sign = 'x'
-		move = input('Where do you want to put your sign, one: ').split()
-		row = int(move[0])
-		col = int(move[1])
-		makeAMove(row, col)
-		#print(move_list)
-		if checkOver(move_list, sign):
-			print('Winner is one!')
-			break
+while check == False:
+	for i in range (1, num_player + 1):
+		if turn%num_player == (i-1):
+			sign = sign_list[i-1]
+			move = input('Where do you want to put your sign, player {}: '.format(i)).split()
+			row = int(move[0])
+			col = int(move[1])
+			makeAMove(row, col)
+			#print(move_list)
+			if checkOver(move_list, sign):
+				print('Winner is player {} !'.format(i))
+				check = True
+				break
 
-
-	if turn%2 == 1:
-		sign = 'o'
-		move = input('Where do you want to put your sign, two: ').split()
-		row = int(move[0])
-		col = int(move[1])
-		makeAMove(row, col)
-		#print(move_list)
-		if checkOver(move_list, sign):
-			print('Winner is two!')
-			break
 
 	turn += 1
 
