@@ -1,9 +1,13 @@
 import random
 
 class Deck:
-	cardList = list(range(1,10))*4
-	def __init__ (self, cardNumber):
-		self.cardNumber = cardNumber
+	cardList = list(range(1,11))*4
+	for i in range(4):
+		cardList.append('A')
+
+
+	def __init__ (self):
+		self.cardNumber = len(self.cardList)
 
 	def throwOut(self):
 		cardThrow = random.choice(self.cardList)
@@ -23,7 +27,10 @@ class Dealer():
 
 	def takeIn(self, card): 
 		self.hand.append(card)
-		self.score += card 
+		if card == 'A':
+			self.score += 11
+		else:	
+			self.score += card
 
 	def checkBurst(self):
 		return self.score > 21
@@ -40,10 +47,22 @@ class Player():
 
 	def takeIn(self, card): 
 		self.hand.append(card)
-		self.score += card 
+		if card == 'A':
+			if (self.score + 11) <= 21:
+				self.score += 11
+			else:
+				self.score += 1
+		else:
+			self.score += card 
 
 	def checkBurst(self):
-		return self.score > 21
+		if self.score > 21 and 'A' in self.hand:
+			self.score -= 10
+			self.hand.remove('A')
+			return False
+		else:
+			return self.score > 21
+
 
 	def checkBJ(self):
 		return self.score == 21
@@ -53,6 +72,7 @@ def game():
 
 	if myPlayer.checkBJ():
 		print('You won with a BJ')
+		myPlayer.fund += bet
 		return 
 	else:
 
@@ -114,13 +134,16 @@ def dealerTurn():
 
 if __name__ == '__main__':
 
+	# myDeck = Deck()
+	# print(myDeck.cardList)
+
 	play = 'y'
 	fund = float(input('How much money do you have? '))
 	myPlayer = Player(fund)
 
 
 	while play == 'y':
-		myDeck = Deck(52)
+		myDeck = Deck()
 		myPlayer.score = 0
 		bet = float(input('How much money do you want to bet? '))
 		myDealer = Dealer()
